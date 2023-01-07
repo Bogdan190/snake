@@ -1,0 +1,48 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: black;
+}
+.main{
+    width: 402px;
+    height: 402px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 150px auto 20px;
+    border-left: 1px dotted white;
+    border-top: 1px dotted white;
+}
+.btns{
+    width: 402px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+}
+button{
+    border: none;
+    border-radius: 10px;
+    background-color: green;
+    cursor: pointer;
+    width: 150px;
+    height: 50px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.item{
+    width: 20px;
+    height: 20px;
+    border-bottom: 1px dotted white;
+    border-right: 1px dotted white;
+}
+
+.apple{
+    background-color: green;
+}
+.snake{
+    background-color: red;
+}
