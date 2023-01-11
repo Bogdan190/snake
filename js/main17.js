@@ -25,10 +25,10 @@ const shifts = {
 }
 
 const init = {
-    top:    { x: rnd(sideLength), y: 0,               direction: 'down' },
-    bottom: { x: rnd(sideLength), y: sideLength - 1,  direction: 'up' },
-    left:   { x: 0,               y: rnd(sideLength), direction: 'right' },
-    right:  { x: sideLength - 1,  y: rnd(sideLength), direction: 'left' },
+    top: { x: rnd(sideLength), y: 0, direction: 'down' },
+    bottom: { x: rnd(sideLength), y: sideLength - 1, direction: 'up' },
+    left: { x: 0, y: rnd(sideLength), direction: 'right' },
+    right: { x: sideLength - 1, y: rnd(sideLength), direction: 'left' },
 }
 
 
@@ -46,15 +46,7 @@ function getNextCoords(from, direction) {
 }
 
 function render() {
-    cells[gameState.apple.x + gameState.apple.y * 20].classList.add('apple')
-    renderSnake()
-}
-
-function renderSnake() {
-    cells[gameState.snake[0].x + gameState.snake[0].y * 20].classList.add('snake')
-    cells[gameState.snake[1].x + gameState.snake[1].y * 20].classList.add('snake')
-    cells[gameState.snake[2].x + gameState.snake[2].y * 20].classList.add('snake')
-    cells[gameState.snake[3].x + gameState.snake[3].y * 20].classList.add('snake')
+    cells[state.x + state.y * 20].classList.add('apple')
 }
 
 function startGameLoop() {
@@ -104,15 +96,15 @@ function addSnake() {
     // ? выбрать точку на ней 
     // ? создать клетки змейки
 
-    const side = ['top', 'left', 'right', 'bottom'][rnd(4)]
-    let { direction, ...coords } = init[side]
+    const side = ['top', 'left', 'right', 'bootom'][rnd(4)]
+    let {direction, ...coords} = init[side]
     gameState.snake.push(coords)
     gameState.direction = direction
 
-    for (let i = 1; i < initLength; i++) {
-        coords = getNextCoords(coords, direction)
-      
-        gameState.snake.push(coords)
+    for (let i = 1; i < initLength; i++){
+        const nextCoords = getNextCoords(coords, direction)
+        
+        gameState.snake.push(nextCoords)
     }
 }
 
