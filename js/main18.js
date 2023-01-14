@@ -15,12 +15,10 @@ const gameState = {
     direction: "down",
 }
 
-
 let prevTs = 0
 let delta = 0
 const step = 500
 let nextStep = step
-let requestId
 
 //const state = { x: 9, y: 3 }
 
@@ -42,12 +40,12 @@ const init = {
 startBtn.onclick = handleStart
 
 onkeydown = function (e) {
-    if (e.key == 'ArrowUp' && gameState.direction != 'down') gameState.direction = 'up'
-    if (e.key == 'ArrowDown' && gameState.direction != 'up') gameState.direction = 'down'
+    if (e.key == 'ArrowUp' && gameState.direction != 'down')  gameState.direction = 'up'
+    if (e.key == 'ArrowDown' && gameState.direction != 'up')  gameState.direction = 'down'
     if (e.key == 'ArrowRight' && gameState.direction != 'left') gameState.direction = 'right'
     if (e.key == 'ArrowLeft' && gameState.direction != 'right') gameState.direction = 'left'
-
-}
+   
+  }
 
 function rnd(limit) {
     return Math.floor(Math.random() * limit)
@@ -75,11 +73,7 @@ function renderSnake() {
 }
 
 function startGameLoop() {
-    requestId = requestAnimationFrame(animate)
-}
-
-function endGameLoop(){
-    cancelAnimationFrame(requestId)
+    requestAnimationFrame(animate)
 }
 
 function animate(ts) {
@@ -98,39 +92,12 @@ function animate(ts) {
 }
 
 function moveSnake() {
-    const headProjection = getNextCoords(gameState.snake.at(-1), gameState.direction)
-    const collision = doesCollide(headProjection)
+    // for (const coords of gameState.snake) {
+    //     coords.y++
+    // }
+    gameState.snake.shift()
+    gameState.snake.push(getNextCoords(gameState.snake.at(-1), gameState.direction))
 
-    if (collision) {
-        if (collision == 'apple') {
-            gameState.snake.push(headProjection)
-            delete gameState.apple
-            addApple()
-            //return
-        } else {
-            endGameLoop()
-        }
-    } else {
-        gameState.snake.shift()
-        gameState.snake.push(headProjection)
-    }
-}
-
-
-function doesCollide({ x, y }) {
-    const { apple, snake } = gameState
-
-    if (x == apple.x && y == apple.y) {
-        return 'apple'
-    }
-    if (snake.some(part => part.x == x && part.y == y)) {
-        return true
-    }
-    if (x < 0 || y < 0 || x > 19 || y > 19) {
-        return true
-    }
-
-    return false
 }
 
 
@@ -144,12 +111,11 @@ function handleStart() {
 
 function addApple() {
     do {
-        const x = Math.floor(Math.random() * 20)
-        const y = Math.floor(Math.random() * 20)
-        if (gameState.snake.every(part => part.x != x && part.y != y)) {
-            gameState.apple = {x, y}
+        let i = Math.floor(Math.random() * 400)
+        if (!cells[i].classList.contains('snake')) {
+            cells[i].classList.add('apple')
         }
-    } while (!gameState.apple)
+    } while (!main.querySelector('.apple'))
 }
 
 function addSnake() {

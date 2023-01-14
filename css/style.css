@@ -32,6 +32,9 @@ button{
     color: #fff;
     font-size: 20px;
 }
+button:disabled{
+    background-color: grey;
+}
 
 .item{
     width: 20px;
@@ -46,3 +49,4 @@ button{
 .snake{
     background-color: red;
 }
+
